@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Каталог мебели с дополненной реальностью</string>
+
+    <!-- Error -->
+    <string name="warning">Внимание</string>
+    <string name="loading_error">Ошибка загрузки данных</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+
+    <string name="categories">Категории</string>
+</resources>
