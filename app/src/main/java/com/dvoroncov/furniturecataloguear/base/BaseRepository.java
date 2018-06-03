@@ -9,9 +9,9 @@ public interface BaseRepository {
 
     void loadData(DataLoadedListener dataLoadedListener);
 
-    boolean dataLoaded();
+    boolean isDataLoaded();
 
     List<Category> getCategories();
 
-    List<Furniture> getFurnitureList();
+    List<Furniture> getFurnitureList(Category category);
 }

@@ -19,6 +19,11 @@ import butterknife.ButterKnife;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
 
     private List<Category> categories = new ArrayList<>();
+    private CategorySelectedListener categorySelectedListener;
+
+    public CategoriesAdapter(CategorySelectedListener categorySelectedListener) {
+        this.categorySelectedListener = categorySelectedListener;
+    }
 
     @NonNull
     @Override
@@ -30,7 +35,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.onBind(categories.get(position).getName());
+        holder.onBind(categories.get(position), categorySelectedListener);
     }
 
     public void setCategories(List<Category> categories) {
@@ -52,8 +57,19 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             ButterKnife.bind(this, view);
         }
 
-        private void onBind(String name) {
-            categoryNameTextView.setText(name);
+        private void onBind(final Category category, final CategorySelectedListener categorySelectedListener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    categorySelectedListener.itemSelected(category);
+                }
+            });
+            categoryNameTextView.setText(category.getName());
         }
+    }
+
+    public interface CategorySelectedListener {
+
+        void itemSelected(Category category);
     }
 }

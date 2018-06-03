@@ -23,12 +23,13 @@
         </activity>
 
         <activity
-            android:name=".ui.ar.HelloArActivity"
+            android:name=".ui.ar.ArActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="locked">
         </activity>
-    </application>
 
+        <meta-data android:name="com.google.ar.core" android:value="required" />
+    </application>
 </manifest>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_default_big">
+
+            <ImageView
+                android:id="@+id/furniture_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:src="@drawable/sofa_image" />
+
+            <ImageView
+                android:id="@+id/show_3d_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_show_3d" />
+
+            <TextView
+                android:id="@+id/furniture_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_default"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/furniture_image_view"
+                tools:text="Диван" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_default"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/furniture_name"
+                android:textAlignment="textStart"
+                tools:text="Цена:" />
+
+            <TextView
+                android:id="@+id/furniture_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_default"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/furniture_name"
+                android:textAlignment="textEnd"
+                tools:text="25000 руб." />
+
+            <TextView
+                android:id="@+id/furniture_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_default"
+                android:fontFamily="sans-serif-condensed"
+                android:textAlignment="viewStart"
+                android:textSize="12sp"
+                android:textColor="#ce000000"
+                android:typeface="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/furniture_price"
+                tools:text="Софа (от араб. صف‎) — широкий диван, в котором спинка и подлокотники имеют одну высоту. В Европе софа известна с XVII века, куда она пришла с Востока (Османская империя). Софа обыкновенно ставилась в аристократических гостиных и предназначалась для дневного отдыха в положении сидя. Каркас софы изготовлялся из ценных пород дерева (кедр, лиственница), обивка делалась из шёлка или кожи, а съёмные (мебельные) подушки для большей жёсткости набивались овечьей шерстью или конским волосом." />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+</FrameLayout>

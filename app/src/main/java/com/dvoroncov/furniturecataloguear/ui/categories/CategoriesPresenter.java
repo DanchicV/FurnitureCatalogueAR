@@ -16,7 +16,7 @@ public class CategoriesPresenter implements CategoriesContract.Presenter {
 
     @Override
     public void subscribe() {
-        repository = new RepositoryImpl();
+        repository = RepositoryImpl.getInstance();
     }
 
     @Override

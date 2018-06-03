@@ -121,7 +121,14 @@ public class ObjectRenderer {
      * @param objAssetName            Name of the OBJ file containing the model geometry.
      * @param diffuseTextureAssetName Name of the PNG file containing the diffuse texture map.
      */
-    public void createOnGlThread(Context context, String objAssetName, String diffuseTextureAssetName)
+
+    public void createOnGlThread(Context context, String objAssetName, String diffuseTextureAssetName) throws IOException {
+        InputStream objInputStream = context.getAssets().open(objAssetName);
+        Bitmap textureBitmap = BitmapFactory.decodeStream(context.getAssets().open(diffuseTextureAssetName));
+        createOnGlThread(context, objInputStream, textureBitmap);
+    }
+
+    public void createOnGlThread(Context context, InputStream objInputStream, Bitmap textureBitmap)
             throws IOException {
         final int vertexShader =
                 ShaderUtil.loadGLShader(TAG, context, GLES20.GL_VERTEX_SHADER, VERTEX_SHADER_NAME);
@@ -152,10 +159,6 @@ public class ObjectRenderer {
 
         ShaderUtil.checkGLError(TAG, "Program parameters");
 
-        // Read the texture.
-        Bitmap textureBitmap =
-                BitmapFactory.decodeStream(context.getAssets().open(diffuseTextureAssetName));
-
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glGenTextures(textures.length, textures, 0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]);
@@ -172,7 +175,6 @@ public class ObjectRenderer {
         ShaderUtil.checkGLError(TAG, "Texture loading");
 
         // Read the obj file.
-        InputStream objInputStream = context.getAssets().open(objAssetName);
         Obj obj = ObjReader.read(objInputStream);
 
         // Prepare the Obj so that its structure is suitable for

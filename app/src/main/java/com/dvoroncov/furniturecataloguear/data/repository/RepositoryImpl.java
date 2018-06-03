@@ -19,11 +19,19 @@ import java.util.Map;
 
 public class RepositoryImpl implements BaseRepository, ValueEventListener {
 
+    private static RepositoryImpl repository;
     private DatabaseReference databaseReference;
     private DataLoadedListener dataLoadedListener;
     private Map<Category, List<Furniture>> categories = new HashMap<>();
 
-    public RepositoryImpl() {
+    public static RepositoryImpl getInstance() {
+        if (repository == null) {
+            repository = new RepositoryImpl();
+        }
+        return repository;
+    }
+
+    private RepositoryImpl() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("categories");
     }
@@ -35,7 +43,7 @@ public class RepositoryImpl implements BaseRepository, ValueEventListener {
     }
 
     @Override
-    public boolean dataLoaded() {
+    public boolean isDataLoaded() {
         return !categories.isEmpty();
     }
 
@@ -52,8 +60,8 @@ public class RepositoryImpl implements BaseRepository, ValueEventListener {
     }
 
     @Override
-    public List<Furniture> getFurnitureList() {
-        return null;
+    public List<Furniture> getFurnitureList(Category category) {
+        return categories.get(category);
     }
 
     @Override

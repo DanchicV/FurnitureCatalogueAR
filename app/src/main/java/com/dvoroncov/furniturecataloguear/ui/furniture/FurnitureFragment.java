@@ -1,4 +1,4 @@
-package com.dvoroncov.furniturecataloguear.ui.categories;
+package com.dvoroncov.furniturecataloguear.ui.furniture;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -18,6 +21,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.dvoroncov.furniturecataloguear.R;
 import com.dvoroncov.furniturecataloguear.base.BaseFragment;
 import com.dvoroncov.furniturecataloguear.data.model.Category;
+import com.dvoroncov.furniturecataloguear.data.model.Furniture;
 import com.dvoroncov.furniturecataloguear.ui.main.MainFragmentInteraction;
 
 import java.util.List;
@@ -26,7 +30,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class CategoriesFragment extends BaseFragment implements CategoriesContract.View, CategoriesAdapter.CategorySelectedListener {
+public class FurnitureFragment extends BaseFragment implements FurnitureContract.View, FurnitureAdapter.FurnitureSelectedListener {
+
+    private static final String KEY_CATEGORY = "CATEGORY";
 
     @BindView(R.id.categories_recycler_view)
     RecyclerView categoriesRecyclerView;
@@ -36,11 +42,16 @@ public class CategoriesFragment extends BaseFragment implements CategoriesContra
 
     private MainFragmentInteraction fragmentInteraction;
     private Unbinder unbinder;
-    private CategoriesPresenter presenter;
-    private CategoriesAdapter adapter = new CategoriesAdapter(this);
+    private FurniturePresenter presenter;
+    private FurnitureAdapter adapter = new FurnitureAdapter(this);
+    private Category category;
 
-    public static CategoriesFragment newInstance() {
-        return new CategoriesFragment();
+    public static FurnitureFragment newInstance(Category category) {
+        FurnitureFragment fragment = new FurnitureFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(KEY_CATEGORY, category);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -63,8 +74,9 @@ public class CategoriesFragment extends BaseFragment implements CategoriesContra
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
 
-        presenter = new CategoriesPresenter();
+        presenter = new FurniturePresenter();
         presenter.setView(this);
         presenter.subscribe();
         return view;
@@ -78,7 +90,11 @@ public class CategoriesFragment extends BaseFragment implements CategoriesContra
         categoriesRecyclerView.setLayoutManager(linearLayoutManager);
         categoriesRecyclerView.setAdapter(adapter);
 
-        presenter.loadCategories();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            category = bundle.getParcelable(KEY_CATEGORY);
+            presenter.loadFurnitureList(category);
+        }
     }
 
     @Override
@@ -87,15 +103,30 @@ public class CategoriesFragment extends BaseFragment implements CategoriesContra
 
         if (isAdded()) {
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                actionBar.setTitle(getString(R.string.categories));
+            if (actionBar != null && category != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setTitle(category.getName());
             }
         }
     }
 
     @Override
-    public void setPresenter(CategoriesPresenter presenter) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home
+                && isAdded()) {
+            getActivity().onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setPresenter(FurniturePresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -122,8 +153,8 @@ public class CategoriesFragment extends BaseFragment implements CategoriesContra
     }
 
     @Override
-    public void setData(List<Category> categories) {
-        adapter.setCategories(categories);
+    public void setData(List<Furniture> furnitureList) {
+        adapter.setCategories(furnitureList);
         adapter.notifyDataSetChanged();
     }
 
@@ -135,7 +166,7 @@ public class CategoriesFragment extends BaseFragment implements CategoriesContra
     }
 
     @Override
-    public void itemSelected(Category category) {
-        fragmentInteraction.openCategory(category);
+    public void itemSelected(Furniture furniture) {
+        fragmentInteraction.openFurniture(furniture);
     }
 }
