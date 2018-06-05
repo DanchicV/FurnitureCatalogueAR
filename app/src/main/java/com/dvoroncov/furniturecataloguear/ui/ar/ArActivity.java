@@ -222,7 +222,7 @@ public class ArActivity extends AppCompatActivity implements GLSurfaceView.Rende
             planeRenderer.createOnGlThread(/*context=*/ this, "models/trigrid.png");
             pointCloudRenderer.createOnGlThread(/*context=*/ this);
 
-            virtualObject.createOnGlThread(/*context=*/ this, "models/box.obj", "models/box.bmp");
+            virtualObject.createOnGlThread(/*context=*/ this, "models/sofa.obj", "models/sofa.jpg");
             virtualObject.setMaterialProperties(0.0f, 2.0f, 0.5f, 6.0f);
 
             virtualObjectShadow.createOnGlThread(
