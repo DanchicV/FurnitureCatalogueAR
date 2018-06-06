@@ -11,8 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,12 +130,6 @@ public class FurnitureInfoFragment extends BaseFragment implements FurnitureInfo
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home
                 && isAdded()) {
@@ -181,12 +173,19 @@ public class FurnitureInfoFragment extends BaseFragment implements FurnitureInfo
     }
 
     @OnClick(R.id.show_3d_button)
-    public void onViewClicked() {
+    public void onShow3DClicked() {
         if (TextUtils.isEmpty(furniture.getModelObjUrl())
                 || TextUtils.isEmpty(furniture.getModelTextureUrl())) {
             return;
         }
         startActivity(new Intent(getContext(), ArActivity.class));
+    }
+
+    @OnClick(R.id.buy_button)
+    public void onBuyClicked() {
+        if (!fragmentInteraction.userIsAuthorized()) {
+            fragmentInteraction.login();
+        }
     }
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {

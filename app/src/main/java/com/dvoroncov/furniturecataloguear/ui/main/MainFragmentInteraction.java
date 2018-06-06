@@ -9,4 +9,10 @@ public interface MainFragmentInteraction extends BaseFragmentInteraction {
     void openCategory(Category category);
 
     void openFurniture(Furniture furniture);
+
+    boolean userIsAuthorized();
+
+    void login();
+
+    void logout();
 }

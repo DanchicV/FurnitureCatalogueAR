@@ -84,6 +84,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/furniture_price"
                 tools:text="Софа (от араб. صف‎) — широкий диван, в котором спинка и подлокотники имеют одну высоту. В Европе софа известна с XVII века, куда она пришла с Востока (Османская империя). Софа обыкновенно ставилась в аристократических гостиных и предназначалась для дневного отдыха в положении сидя. Каркас софы изготовлялся из ценных пород дерева (кедр, лиственница), обивка делалась из шёлка или кожи, а съёмные (мебельные) подушки для большей жёсткости набивались овечьей шерстью или конским волосом." />
 
+            <Button
+                android:id="@+id/buy_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_default"
+                android:background="@color/colorAccent"
+                android:text="@string/buy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/furniture_description"/>
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

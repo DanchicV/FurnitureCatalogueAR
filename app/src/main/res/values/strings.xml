@@ -8,4 +8,10 @@
 
     <string name="categories">Категории</string>
     <string name="rub">%s руб.</string>
+    <string name="buy">Заказать</string>
+
+    <!-- Auth -->
+    <string name="login">Войти</string>
+    <string name="logout">Выйти</string>
+
 </resources>

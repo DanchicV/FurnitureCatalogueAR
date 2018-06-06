@@ -24,11 +24,13 @@
 
         <TextView
             android:id="@+id/category_name_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_default"
             android:textAlignment="center"
             android:textColor="@android:color/black"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textSize="@dimen/text_size_title"
             app:layout_constraintStart_toEndOf="@id/furniture_image"
             app:layout_constraintEnd_toStartOf="@id/next_image"
